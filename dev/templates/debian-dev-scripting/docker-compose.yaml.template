@@ -1,0 +1,9 @@
+services:
+  {{SERVICE_NAME}}:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "{{PORT}}:3389"
+    volumes:
+      - {{VOLUME_PATH}}:/home/docker/Desktop/Development

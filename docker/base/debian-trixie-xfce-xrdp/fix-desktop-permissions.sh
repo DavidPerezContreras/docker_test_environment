@@ -1,9 +1,17 @@
 #!/bin/bash
 
-echo "🔧 Fixing ownership of Desktop (excluding Development)..."
+echo "🔧 Starting entrypoint.sh"
 
-sudo find /home/docker/Desktop \
-  -path /home/docker/Desktop/Development -prune -o \
-  -exec chown docker:docker {} +
+DESKTOP="/home/docker/Desktop"
+EXCLUDE="$DESKTOP/Development"
 
-echo "✅ Desktop ownership fixed."
+# Fix ownership of Desktop folder itself
+chown docker:docker "$DESKTOP"
+
+# Fix ownership recursively for everything inside Desktop except Development
+find "$DESKTOP" -mindepth 1 \( -path "$EXCLUDE" -o -path "$EXCLUDE/*" \) -prune -o -exec chown docker:docker {} \;
+
+echo "✅ Finished entrypoint.sh"
+
+# Start the main process
+exec "$@"

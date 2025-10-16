@@ -19,12 +19,16 @@ RUN apt update && apt install -y \
     && echo "certificate=/etc/xrdp/keys/xrdp.crt" >> /etc/xrdp/xrdp.ini \
     && echo "key_file=/etc/xrdp/keys/xrdp.key" >> /etc/xrdp/xrdp.ini
 
-# Copy startup and permission fix scripts
+# Copy scripts
 COPY start-xrdp.sh /usr/local/bin/start-xrdp.sh
 COPY fix-desktop-permissions.sh /usr/local/bin/fix-desktop-permissions.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
 RUN chmod +x /usr/local/bin/start-xrdp.sh \
-    && chmod +x /usr/local/bin/fix-desktop-permissions.sh
+    && chmod +x /usr/local/bin/fix-desktop-permissions.sh \
+    && chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 3389
 
-CMD ["/usr/local/bin/start-xrdp.sh"]
+# Run entrypoint which handles permissions and starts XRDP
+CMD ["/usr/local/bin/entrypoint.sh"]
