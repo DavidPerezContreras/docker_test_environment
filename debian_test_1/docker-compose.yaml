@@ -1,8 +1,0 @@
-services:
-  trixie-ui:
-    image: debian-trixie-xfce-xrdp
-    container_name: debian-test-1
-    ports:
-      - "6000:3389"
-    volumes:
-      - /mnt/4DF2C69722973221/Development:/home/docker/Development

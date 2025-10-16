@@ -18,3 +18,6 @@ fi
 
 echo "✅ Image 'debian-trixie-xfce-xrdp' built successfully."
 echo "📦 You can now use this image in your docker-compose.yaml files."
+
+
+#ENSURE YOUR CURRENT DIRECTORY IS THE SAME AS THE DOCKERFILE LOCATION

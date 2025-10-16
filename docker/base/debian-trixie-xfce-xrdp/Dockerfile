@@ -17,7 +17,9 @@ RUN apt update && apt install -y \
        -subj "/CN=localhost" \
     && echo "ssl_protocols=TLSv1.2,TLSv1.3" >> /etc/xrdp/xrdp.ini \
     && echo "certificate=/etc/xrdp/keys/xrdp.crt" >> /etc/xrdp/xrdp.ini \
-    && echo "key_file=/etc/xrdp/keys/xrdp.key" >> /etc/xrdp/xrdp.ini
+    && echo "key_file=/etc/xrdp/keys/xrdp.key" >> /etc/xrdp/xrdp.ini \
+    && echo "setxkbmap es" >> /etc/skel/.xsession \
+    && sed -i 's/^# setxkbmap/setxkbmap es/' /etc/xrdp/startwm.sh
 
 # Copy startup script
 COPY start-xrdp.sh /usr/local/bin/start-xrdp.sh

@@ -2,6 +2,8 @@
 
 This project uses Docker to create lightweight, customizable desktop environments based on Debian Trixie with XFCE and XRDP. It’s ideal for testing, development, or remote desktop access.
 
+debian-trixie-xfce-xrdp is the base image. We create other folders for our Dockerfiles and docker compose. We 
+
 ---
 
 ## 📁 Script: `new_test_environment.sh`
