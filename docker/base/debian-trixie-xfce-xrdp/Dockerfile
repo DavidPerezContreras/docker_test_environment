@@ -17,13 +17,13 @@ RUN apt update && apt install -y \
        -subj "/CN=localhost" \
     && echo "ssl_protocols=TLSv1.2,TLSv1.3" >> /etc/xrdp/xrdp.ini \
     && echo "certificate=/etc/xrdp/keys/xrdp.crt" >> /etc/xrdp/xrdp.ini \
-    && echo "key_file=/etc/xrdp/keys/xrdp.key" >> /etc/xrdp/xrdp.ini \
-    && echo "setxkbmap es" >> /etc/skel/.xsession \
-    && sed -i 's/^# setxkbmap/setxkbmap es/' /etc/xrdp/startwm.sh
+    && echo "key_file=/etc/xrdp/keys/xrdp.key" >> /etc/xrdp/xrdp.ini
 
-# Copy startup script
+# Copy startup and permission fix scripts
 COPY start-xrdp.sh /usr/local/bin/start-xrdp.sh
-RUN chmod +x /usr/local/bin/start-xrdp.sh
+COPY fix-desktop-permissions.sh /usr/local/bin/fix-desktop-permissions.sh
+RUN chmod +x /usr/local/bin/start-xrdp.sh \
+    && chmod +x /usr/local/bin/fix-desktop-permissions.sh
 
 EXPOSE 3389
 
