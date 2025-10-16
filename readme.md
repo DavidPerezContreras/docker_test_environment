@@ -55,17 +55,50 @@ docker rm -f <name>  # Force-remove a running container
 
 docker images
 
-### 🧼 Clean Up Disk Space
+---
 
-docker system df             # Show disk usage  
-docker system prune          # Remove unused containers/images  
-docker system prune -a       # Remove all unused images  
-docker system prune --volumes  # Include unused volumes
+## 📂 Docker Volume Management
+
+### 📋 List Volumes
+
+docker volume ls
+
+### 🔍 Inspect a Volume
+
+docker volume inspect <volume_name>
+
+### ➕ Create a Volume
+
+docker volume create <volume_name>
+
+### 🧹 Remove a Volume
+
+docker volume rm <volume_name>         # Only if not in use  
+docker volume prune                    # Remove all unused volumes
+
+### 📦 Use a Volume in a Container
+
+docker run -v <volume_name>:/path/in/container ...
+
+### 📁 Bind a Host Directory
+
+docker run -v /host/path:/container/path ...
+
+---
+
+## 🧼 Clean Up Disk Space
+
+docker system df                      # Show disk usage  
+docker system prune                   # Remove unused containers/images  
+docker system prune -a                # Remove all unused images  
+docker system prune --volumes         # Include unused volumes
 
 ---
 
 ## 🧠 Tips
 
-- You can run multiple containers from the same image with different ports.
-- Use volumes to persist data across container restarts.
-- Use `docker exec -it <name> bash` to open a shell inside any running container.
+- You can run multiple containers from the same image with different ports.  
+- Use volumes to persist data across container restarts.  
+- Use `docker exec -it <name> bash` to open a shell inside any running container.  
+- Named volumes are managed by Docker and are ideal for persistent, portable data.  
+- Bind mounts are great for sharing local folders with containers during development.

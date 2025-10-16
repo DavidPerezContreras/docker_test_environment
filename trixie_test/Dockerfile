@@ -2,6 +2,7 @@ FROM debian:trixie
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Install required packages and configure user and XRDP
 RUN apt update && apt install -y \
     xfce4 xfce4-goodies xrdp dbus-x11 lightdm sudo openssl \
     && echo "startxfce4" > /etc/skel/.xsession \
@@ -18,6 +19,10 @@ RUN apt update && apt install -y \
     && echo "certificate=/etc/xrdp/keys/xrdp.crt" >> /etc/xrdp/xrdp.ini \
     && echo "key_file=/etc/xrdp/keys/xrdp.key" >> /etc/xrdp/xrdp.ini
 
+# Copy startup script
+COPY start-xrdp.sh /usr/local/bin/start-xrdp.sh
+RUN chmod +x /usr/local/bin/start-xrdp.sh
+
 EXPOSE 3389
 
-CMD ["/bin/bash", "-c", "/usr/sbin/xrdp-sesman && /usr/sbin/xrdp && tail -f /dev/null"]
+CMD ["/usr/local/bin/start-xrdp.sh"]
