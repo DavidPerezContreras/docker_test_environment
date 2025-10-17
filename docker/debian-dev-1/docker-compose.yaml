@@ -1,9 +1,17 @@
 services:
   debian-dev-1:
+    container_name: debian-dev-container
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - DOCKER_PASSWORD=docker
+      - ROOT_PASSWORD=docker
     ports:
       - "6000:3389"
     volumes:
       - /mnt/4DF2C69722973221/Development:/home/docker/Desktop/Development
+      - container-data:/home/docker/Desktop/container-data
+
+volumes:
+  container-data:

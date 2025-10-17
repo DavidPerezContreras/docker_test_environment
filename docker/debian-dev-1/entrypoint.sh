@@ -2,6 +2,9 @@
 
 echo "🚀 Starting entrypoint.sh"
 
+# Set passwords if provided
+/usr/local/bin/password.sh
+
 # Run setup scripts
 /usr/local/bin/fix-permissions.sh
 /usr/local/bin/keyboard-layout.sh
