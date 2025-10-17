@@ -1,9 +1,0 @@
-services:
-  debian-dev-2:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "6002:3389"
-    volumes:
-      - /mnt/4DF2C69722973221/Development:/home/docker/Desktop/Development

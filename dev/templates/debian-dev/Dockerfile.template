@@ -1,3 +1,14 @@
 FROM debian-trixie-xfce-xrdp
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+# Copy scripts
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY start-xrdp.sh /usr/local/bin/start-xrdp.sh
+
+# Make them executable
+RUN chmod +x /usr/local/bin/entrypoint.sh \
+    && chmod +x /usr/local/bin/start-xrdp.sh
+
+# Delegate startup to entrypoint
+CMD ["/usr/local/bin/entrypoint.sh"]
