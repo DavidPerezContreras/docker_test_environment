@@ -13,7 +13,6 @@ fi
 cat <<EOF > "$USER_HOME/.xprofile"
 #!/bin/bash
 setxkbmap es
-touch /tmp/xxx_xprofile
 EOF
 
 # Set permissions
@@ -22,9 +21,3 @@ chown docker:docker "$USER_HOME/.xprofile"
 
 echo "✅ Spanish keyboard layout configured via .xprofile"
 
-# Start XRDP services (optional if not handled elsewhere)
-# systemctl start xrdp
-# systemctl start xrdp-sesman
-
-# Run any additional startup commands here
-exec "\$@"
