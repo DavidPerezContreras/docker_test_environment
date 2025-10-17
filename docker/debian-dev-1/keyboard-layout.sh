@@ -1,30 +1,30 @@
 #!/bin/bash
 
-echo "🌐 Configuring Spanish keyboard layout for XRDP and XFCE"
+# Define the user's home directory
+USER_HOME="/home/docker"
 
-# Set XRDP login screen layout (Spanish layout code: 0000040A)
-sed -i '/^keyboard_layout=/c\keyboard_layout=0x0000040A' /etc/xrdp/xrdp.ini || echo "keyboard_layout=0x0000040A" >> /etc/xrdp/xrdp.ini
+# Ensure home directory exists
+if [ ! -d "$USER_HOME" ]; then
+    echo "User home directory not found: $USER_HOME"
+    exit 1
+fi
 
-# Create .xsession for XFCE session with Spanish layout
-cat <<EOF > /home/docker/.xsession
-setxkbmap -model pc105 -layout es
-startxfce4
+# Create .xprofile to set Spanish keyboard layout and debug marker
+cat <<EOF > "$USER_HOME/.xprofile"
+#!/bin/bash
+setxkbmap es
+touch /tmp/xxx_xprofile
 EOF
-chmod 644 /home/docker/.xsession
-chown docker:docker /home/docker/.xsession
 
-# Configure XFCE default keyboard layout
-mkdir -p /home/docker/.config/xfce4/xfconf/xfce-perchannel-xml
-cat <<EOF > /home/docker/.config/xfce4/xfconf/xfce-perchannel-xml/keyboard-layout.xml
-<?xml version="1.0" encoding="UTF-8"?>
-<channel name="keyboard-layout" version="1.0">
-  <property name="Default" type="empty">
-    <property name="Layout" type="string" value="es"/>
-    <property name="Model" type="string" value="pc105"/>
-  </property>
-</channel>
-EOF
-chown -R docker:docker /home/docker/.config
-chmod -R 755 /home/docker/.config
+# Set permissions
+chmod +x "$USER_HOME/.xprofile"
+chown docker:docker "$USER_HOME/.xprofile"
 
-echo "✅ Spanish layout applied"
+echo "✅ Spanish keyboard layout configured via .xprofile"
+
+# Start XRDP services (optional if not handled elsewhere)
+# systemctl start xrdp
+# systemctl start xrdp-sesman
+
+# Run any additional startup commands here
+exec "\$@"
