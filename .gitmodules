@@ -1,3 +1,0 @@
-[submodule "docker/debian-dev-1"]
-	path = docker/debian-dev-1
-	url = https://github.com/DavidPerezContreras/debian-dev-1.git
